@@ -1,1 +1,2 @@
-const nombreCliente = 'Franken';
+export const nombreCliente = 'Franken';
+
