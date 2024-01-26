@@ -23,7 +23,7 @@
         // si todo esta bien, asignar a database el resultado
         crearDB.onsuccess = function() {
             // guardamos el resultado
-            DB = crearDB.result; //quiere decir que si se crea correcctamente se asigna a esta variable
+            DB = crearDB.result;
         };
     
         // este método solo corre una vez
@@ -34,11 +34,11 @@
             
             // definir el objectstore, primer parametro el nombre de la BD, segundo las opciones
             // keypath es de donde se van a obtener los indices
-            const objectStore = db.createObjectStore('id', { keyPath: 'crm',  autoIncrement: true } );
+            const objectStore = db.createObjectStore('crm', { keyPath: 'id',  autoIncrement: true } );
     
             //createindex, nombre y keypath, 3ro los parametros
             objectStore.createIndex('nombre', 'nombre', { unique: false } );
-            objectStore.createIndex('email', 'email', { unique: false } );
+            objectStore.createIndex('email', 'email', { unique: true } );
             objectStore.createIndex('telefono', 'telefono', { unique: false } );
             objectStore.createIndex('empresa', 'empresa', { unique: false } );
             objectStore.createIndex('id', 'id', { unique: true } );
@@ -75,7 +75,7 @@
                 //  console.log(e.target);
      
                  if(cursor) {
-                    const { nombre, email, telefono, empresa, id } = cursor.value;
+                    const { nombre, empresa, email, telefono, id } = cursor.value;
                     
                     const listadoClientes = document.querySelector('#listado-clientes');
                     listadoClientes.innerHTML += `

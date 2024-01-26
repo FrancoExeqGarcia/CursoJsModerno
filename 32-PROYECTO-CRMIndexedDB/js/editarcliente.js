@@ -2,28 +2,30 @@
 
     let DB;
     let idCliente;
+    const formulario = document.querySelector('#formulario');
    
     const nombreInput = document.querySelector('#nombre');
     const emailInput = document.querySelector('#email');
-    const telefonoInput = document.querySelector('#telefono');
     const empresaInput = document.querySelector('#empresa');
-    const formulario = document.querySelector('#formulario');
+    const telefonoInput = document.querySelector('#telefono');
 
     document.addEventListener('DOMContentLoaded', () => {
+
+
         conectarDB();
 
         //
         formulario.addEventListener('submit', actualizarCliente);
 
 
-        // Verificar ID
+        // Verificar si el cliente existe
         const parametrosURL = new URLSearchParams(window.location.search);
         idCliente = parametrosURL.get('id');
         if(idCliente) {
    
-            setTimeout(() => {
+            setTimeout( () => {
                 obtenerCliente(idCliente);
-            }, 1000);
+            }, 100);
         }
 
     });
@@ -43,7 +45,6 @@
         abrirConexion.onsuccess = function() {
             // guardamos el resultado
             DB = abrirConexion.result;
-            console.log('Exito al abrir la base de datos');
         };
     }
 
@@ -55,11 +56,11 @@
 
         console.log(objectStore);
 
-        const cliente = objectStore.openCursor();
-        cliente.onsuccess = function(event) {
-            const cursor = event.target.result;
+        var request = objectStore.openCursor();
+        request.onsuccess = function(event) {
+            var cursor = event.target.result;
             if (cursor) {
-                if(cursor.value.id  === Number(id) ) {
+                if(cursor.value.id  == id ) {
                     // pasar el que estamos editando...
                     llenarFormulario(cursor.value);
                 }
@@ -70,11 +71,11 @@
     }
 
     function llenarFormulario(datosCliente) {
-        const { nombre, email, telefono, empresa } = datosCliente;
+        const { nombre, email, empresa, telefono } = datosCliente;
          nombreInput.value = nombre;
          emailInput.value = email;
-         telefonoInput.value = telefono;
          empresaInput.value = empresa;
+         telefonoInput.value = telefono;
     }
 
     function actualizarCliente(e) {
@@ -102,7 +103,6 @@
         const objectStore = transaction.objectStore('crm');
 
         objectStore.put(clienteActualizado);
-        console.log(transaction);
 
         transaction.oncomplete = () => {
             imprimirAlerta('Editado Correctamente');
@@ -112,9 +112,9 @@
             }, 3000);
         };
 
-        transaction.onerror = function(error) {
-            imprimirAlerta('Hubo un error','error');
-            console.log('error al actualizar ccliente');
+        transaction.onerror = (error) => {
+            console.log(error);
+            console.log('Hubo un errorr.');
         };
     }
 
