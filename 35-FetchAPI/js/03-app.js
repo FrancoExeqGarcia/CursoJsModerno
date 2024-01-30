@@ -16,7 +16,7 @@ function obtenerDatos() {
 }
 
 function mostrarHTML(empleados) {
-    const contenido = document.querySelector('#contenido');
+    const contenido = document.querySelector('.contenido');
 
     let html = '';
 

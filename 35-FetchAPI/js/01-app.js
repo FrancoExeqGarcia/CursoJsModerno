@@ -13,9 +13,9 @@ function obtenerDatos() {
 
             console.log(respuesta.headers.get("Content-Type"));
             console.log(respuesta.status); // Estado
-            console.log(respuesta.statusText); // STATE
+            console.log(respuesta.statusText); // STATE "ok"
             console.log(respuesta.url); // URL que se consulta
-            console.log(respuesta.type); // consulta
+            console.log(respuesta.type); // tipo de consulta que estamos realizando 
 
 
             return respuesta.text(); 

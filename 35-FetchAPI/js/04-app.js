@@ -1,10 +1,11 @@
-// api desde api
+// cargar desde api
 const cargarAPIBtn = document.querySelector('#cargarAPI');
 cargarAPIBtn.addEventListener('click', obtenerDatos);
 
 
 function obtenerDatos() {
-    fetch('https://picsum.photos/list') 
+    const url = 'https://picsum.photos/list';
+    fetch(url) 
         .then( respuesta => {
             return respuesta.json()
         }) 
@@ -16,7 +17,7 @@ function obtenerDatos() {
 
 function mostrarHTML(datos) {
     
-    const contenido = document.querySelector('#contenido');
+    const contenido = document.querySelector('.contenido');
 
     let html = '';
 
